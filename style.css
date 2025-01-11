@@ -1,0 +1,35 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: black;
+}
+
+.container {
+    width: min(100vmin, 600px);
+    height: min(100vmin, 600px);
+
+    font-size: min(33vmin, 200px);
+
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.cell {
+    background-size: contain;
+    border-radius: 8px;
+    border: black 1px solid;
+}
+
+.cell[type="x"] {
+    background-image: url("images/cross.svg");
+}
+
+.cell[type="o"] {
+    background-image: url("images/circle.svg");
+}
