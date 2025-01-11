@@ -100,6 +100,7 @@ function Game(){
         if (checkVictory(x, y, symbol))
         {
             onWin.invoke(symbol);
+            return;
         }
 
         
@@ -108,6 +109,7 @@ function Game(){
         if (turn == 9)
         {
             onDraw.invoke();
+            return;
         }
     }
 
