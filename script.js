@@ -108,3 +108,29 @@ function Game(){
     this.setTile = setTile;
     this.grid = grid;
 };
+
+function Event()
+{
+    let subscribers = [];
+
+    function subscribe(subscriber)
+    {
+        subscribers.push(subscriber);
+    }
+
+    function unsubscribe(subscriber)
+    {
+        subscribers.splice(subscribers.indexOf(subscriber), 1);
+    }
+
+    function invoke()
+    {
+        for (const subscriber of subscribers) {
+            subscriber(...arguments);
+        }
+    }
+
+    this.subscribe = subscribe;
+    this.unsubscribe = unsubscribe;
+    this.invoke = invoke;
+}
