@@ -3,6 +3,63 @@ const O = "o";
 
 let game = new Game();
 
+let interface = new Interface();
+
+function Interface(){
+    let grid = [];
+
+    const container = document.querySelector(".container");
+
+    function initialize()
+    {
+        for (const cell of container.childNodes) {
+            container.removeChild(cell);
+        }
+
+        for (let x = 0; x <= 2; x++) {
+            grid[x] = [];
+            for (let y = 0; y <= 2; y++) {
+                let cell = createCell(x, y);
+
+                container.appendChild(cell);
+                grid[x][y] = cell;
+            }
+        }
+
+
+        function createCell(x, y)
+        {
+            let cell = document.createElement("button");
+            cell.classList.add("cell");
+            cell.onclick = () => {
+                game.setTile(x, y);
+            }
+            return cell;
+        }
+    }
+
+    function setTile(x, y, symbol)
+    {
+        grid[x][y].setAttribute("type", symbol);
+    }
+
+    function victory(symbol)
+    {
+        alert(symbol + " won!");
+    }
+
+    function draw()
+    {
+        alert("Draw");
+    }
+
+    game.onTileSet.subscribe(setTile);
+    game.onWin.subscribe(victory);
+    game.onDraw.subscribe(draw);
+
+    this.initialize = initialize;
+}
+
 function Game(){
     let turn = 0;
 
