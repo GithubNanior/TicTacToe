@@ -8,10 +8,15 @@ let interface = new Interface();
 function Interface(){
     let grid = [];
 
+    const victoryBanner = document.querySelector("#victory");
+    const drawBanner = document.querySelector("#draw");
     const container = document.querySelector(".container");
 
     function initialize()
     {
+        victoryBanner.style.display = "none";
+        drawBanner.style.display = "none";
+
         for (const cell of container.childNodes) {
             container.removeChild(cell);
         }
@@ -45,12 +50,13 @@ function Interface(){
 
     function victory(symbol)
     {
-        alert(symbol + " won!");
+        victoryBanner.textContent = symbol + " won!"
+        victoryBanner.style.display = "block";
     }
 
     function draw()
     {
-        alert("Draw");
+        drawBanner.style.display = "block";
     }
 
     game.onTileSet.subscribe(setTile);
