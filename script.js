@@ -12,6 +12,10 @@ function Game(){
         [" ", " ", " "]
     ];
 
+    const onTileSet = new Event();
+    const onWin = new Event();
+    const onDraw = new Event();
+
 
     // Checks
 
@@ -91,9 +95,11 @@ function Game(){
 
         grid[x][y] = symbol;
 
+        onTileSet.invoke(x, y, symbol);
+
         if (checkVictory(x, y, symbol))
         {
-            console.log(symbol + " won!");
+            onWin.invoke(symbol);
         }
 
         
@@ -101,12 +107,14 @@ function Game(){
 
         if (turn == 9)
         {
-            console.log("Draw!")
+            onDraw.invoke();
         }
     }
 
     this.setTile = setTile;
-    this.grid = grid;
+    this.onTileSet = onTileSet;
+    this.onWin = onWin;
+    this.onDraw = onDraw;
 };
 
 function Event()
