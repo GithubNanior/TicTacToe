@@ -9,6 +9,7 @@ function Interface(){
     let grid = [];
 
     const banner = document.querySelector(".banner");
+    const outcomeText = banner.querySelector(".outcome-text");
     const container = document.querySelector(".container");
 
     function initialize()
@@ -48,14 +49,14 @@ function Interface(){
 
     function victory(symbol)
     {
-        banner.textContent = symbol + " won!"
         banner.style.display = "block";
+        outcomeText.textContent = symbol + " won!"
     }
 
     function draw()
     {
-        banner.textContent = "Draw!"
         banner.style.display = "block";
+        outcomeText.textContent = "Draw!"
     }
 
     game.onTileSet.subscribe(setTile);
