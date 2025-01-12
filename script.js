@@ -14,7 +14,7 @@ function Interface(){
 
     function initialize()
     {
-        banner.style.display = "none";
+        banner.style.visibility = "hidden";
 
         for (const cell of container.childNodes) {
             container.removeChild(cell);
@@ -49,13 +49,13 @@ function Interface(){
 
     function victory(symbol)
     {
-        banner.style.display = "block";
+        banner.style.visibility = "visible";
         outcomeText.textContent = symbol + " won!"
     }
 
     function draw()
     {
-        banner.style.display = "block";
+        banner.style.visibility = "visible";
         outcomeText.textContent = "Draw!"
     }
 
