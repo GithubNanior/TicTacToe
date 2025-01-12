@@ -12,6 +12,7 @@ function Interface(){
 
     const banner = document.querySelector(".banner");
     const outcomeText = banner.querySelector(".outcome-text");
+    const retryButton = banner.querySelector(".retry-button");
     const container = document.querySelector(".container");
 
     function initialize()
@@ -30,6 +31,12 @@ function Interface(){
         game.onWin.subscribe(victory);
         game.onDraw.subscribe(draw);
 
+        retryButton.onclick = ()=>{
+            interface.destroy();
+
+            game.initialize();
+            interface.initialize();
+        }
 
         function createCell(x, y)
         {
