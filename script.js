@@ -4,6 +4,7 @@ const O = "o";
 let game = new Game();
 
 let interface = new Interface();
+interface.initialize();
 
 function Interface(){
     let grid = [];
