@@ -16,8 +16,9 @@ function Interface(){
     {
         banner.style.visibility = "hidden";
 
-        for (const cell of container.childNodes) {
-            container.removeChild(cell);
+        while (container.hasChildNodes())
+        {
+            container.removeChild(container.firstChild);
         }
 
         for (let x = 0; x <= 2; x++) {
