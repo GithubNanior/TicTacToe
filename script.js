@@ -2,6 +2,7 @@ const X = "x";
 const O = "o";
 
 let game = new Game();
+game.initialize();
 
 let interface = new Interface();
 interface.initialize();
@@ -77,17 +78,56 @@ function Interface(){
 }
 
 function Game(){
-    let turn = 0;
+    let turn;
 
-    let grid = [
-        [" ", " ", " "], 
-        [" ", " ", " "], 
-        [" ", " ", " "]
-    ];
+    let grid;
 
     const onTileSet = new Event();
     const onWin = new Event();
     const onDraw = new Event();
+
+
+    // Functions
+
+    function initialize()
+    {
+        turn = 0;
+        grid = [
+            [" ", " ", " "], 
+            [" ", " ", " "], 
+            [" ", " ", " "]
+        ];
+    }
+
+    function setTile(x, y)
+    {
+        if (!cellAvailable(x, y))
+        {
+            return;
+        }
+
+
+        let symbol = turn % 2 == 0 ? X : O;
+
+        grid[x][y] = symbol;
+
+        onTileSet.invoke(x, y, symbol);
+
+        if (checkVictory(x, y, symbol))
+        {
+            onWin.invoke(symbol);
+            return;
+        }
+
+        
+        turn++;
+
+        if (turn == 9)
+        {
+            onDraw.invoke();
+            return;
+        }
+    }
 
 
     // Checks
@@ -153,39 +193,7 @@ function Game(){
             (x == 2 - y && checkDiagonalR(symbol));
     }
 
-
-    // Functions
-
-    function setTile(x, y)
-    {
-        if (!cellAvailable(x, y))
-        {
-            return;
-        }
-
-
-        let symbol = turn % 2 == 0 ? X : O;
-
-        grid[x][y] = symbol;
-
-        onTileSet.invoke(x, y, symbol);
-
-        if (checkVictory(x, y, symbol))
-        {
-            onWin.invoke(symbol);
-            return;
-        }
-
-        
-        turn++;
-
-        if (turn == 9)
-        {
-            onDraw.invoke();
-            return;
-        }
-    }
-
+    this.initialize = initialize;
     this.setTile = setTile;
     this.onTileSet = onTileSet;
     this.onWin = onWin;
