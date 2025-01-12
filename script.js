@@ -15,13 +15,6 @@ function Interface(){
 
     function initialize()
     {
-        banner.style.visibility = "hidden";
-
-        while (container.hasChildNodes())
-        {
-            container.removeChild(container.firstChild);
-        }
-
         for (let x = 0; x <= 2; x++) {
             grid[x] = [];
             for (let y = 0; y <= 2; y++) {
@@ -31,6 +24,10 @@ function Interface(){
                 grid[x][y] = cell;
             }
         }
+
+        game.onTileSet.subscribe(setTile);
+        game.onWin.subscribe(victory);
+        game.onDraw.subscribe(draw);
 
 
         function createCell(x, y)
@@ -42,6 +39,20 @@ function Interface(){
             }
             return cell;
         }
+    }
+
+    function destroy()
+    {
+        banner.style.visibility = "hidden";
+
+        while (container.hasChildNodes())
+        {
+            container.removeChild(container.firstChild);
+        }
+
+        game.onTileSet.unsubscribe(setTile);
+        game.onWin.unsubscribe(victory);
+        game.onDraw.unsubscribe(draw);
     }
 
     function setTile(x, y, symbol)
@@ -61,11 +72,8 @@ function Interface(){
         outcomeText.textContent = "Draw!"
     }
 
-    game.onTileSet.subscribe(setTile);
-    game.onWin.subscribe(victory);
-    game.onDraw.subscribe(draw);
-
     this.initialize = initialize;
+    this.destroy = destroy;
 }
 
 function Game(){
